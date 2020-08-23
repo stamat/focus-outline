@@ -1,4 +1,4 @@
 # focus-outline.js
-Hide element outlines on mouse click
+Remove element outlines on mouse click, show them on TAB key
 
 Inspired by [outline.js](https://github.com/lindsayevans/outline.js) 
