@@ -1,0 +1,22 @@
+{
+  "name": "focus-outline",
+  "version": "1.0.0",
+  "description": "Remove element outlines on mouse click, show them on TAB key",
+  "main": "focus-outline.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stamat/focus-outline.js.git"
+  },
+  "keywords": [
+    "focus",
+    "outline",
+    "a11y",
+    "accessibility"
+  ],
+  "author": "Nikola Stamatovic <@stamat>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stamat/focus-outline.js/issues"
+  },
+  "homepage": "https://github.com/stamat/focus-outline.js"
+}
