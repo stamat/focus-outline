@@ -1,6 +1,6 @@
 {
   "name": "focus-outline",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Remove element outlines on mouse click, show them on TAB key",
   "main": "focus-outline.mjs",
   "repository": {
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/stamat/focus-outline",
   "devDependencies": {
-    "poops": "^1.0.9"
+    "poops": "^1.0.10"
   }
 }

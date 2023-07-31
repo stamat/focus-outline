@@ -1,4 +1,4 @@
-/* focus-outline v1.0.1 | https://github.com/stamat/focus-outline | MIT License */
+/* focus-outline v1.0.2 | https://github.com/stamat/focus-outline | MIT License */
 (() => {
   // focus-outline.mjs
   var FocusOutline = class {
