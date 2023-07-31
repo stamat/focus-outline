@@ -1,5 +1,3 @@
-/* focus-outline v1.0.1 - https://github.com/stamat/focus-outline */
-
 export class FocusOutline {
   constructor() {
     this.style_elem = document.createElement('STYLE')
