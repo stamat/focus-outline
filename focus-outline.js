@@ -1,69 +1,40 @@
-/* focus-outline.js v1.0.0 - https://github.com/stamat/focus-outline.js */
+/* focus-outline v1.0.1 - https://github.com/stamat/focus-outline */
 
-(function() {
-  var modern      = 'addEventListener' in document,
-      style_elem  = document.createElement('STYLE');
-  style_elem.setAttribute('type', 'text/css');
+export class FocusOutline {
+  constructor() {
+    this.style_elem = document.createElement('STYLE')
+    this.style_elem.setAttribute('type', 'text/css')
+    this.style_elem.setAttribute('data-id', 'focus-outline-style')
 
-  function on(event_name, fn) {
-    if (modern) {
-      document.addEventListener(event_name, fn);
-      return;
-    }
+    document.head.appendChild(this.style_elem)
 
-    //IE 6-8
-    document.attachEvent('on' + event_name, fn);
+    document.addEventListener('keydown', this.enable) // on
+    document.addEventListener('mousedown', this.disable) // on
   }
 
-  function off(event_name, fn) {
-    if (modern) {
-      document.removeEventListener(event_name, fn);
-      return;
-    }
-
-    //IE 6-8
-    document.detachEvent('on' + event_name, fn);
-  }
-
-  function getHeadElement() {
-    if (modern) {
-      return document.head;
-    }
-
-    //IE 6-8
-    return getElementsByTagName('HEAD')[0];
-  }
-
-  function setStyle(elem, style_string) {
-    elem.innerHTML = style_string;
-  }
-
-  getHeadElement().appendChild(style_elem);
-
-  /*
-   * On first tab keydown enable focus outlines
-   */
-  function enableFocusOutline(event) {
-    var KEY_CODES = {
+  enable(event) {
+    const KEY_CODES = {
       9: 'TAB'
-    };
-
-    if (KEY_CODES.hasOwnProperty(event.keyCode)) {
-      setStyle(style_elem, '');
-      off('keydown', enableFocusOutline);
-      on('mousedown', dispableFocusOutline);
     }
-  }
-  on('keydown', enableFocusOutline);
 
-  /*
-   * On first mousedown disable focus outlines
-   */
-  function dispableFocusOutline() {
-    setStyle(style_elem, ':focus{outline:0;}::-moz-focus-inner{border:0;}');
-    off('mousedown', dispableFocusOutline);
-    on('keydown', enableFocusOutline);
-  }
-  on('mousedown', dispableFocusOutline);
+    if (!KEY_CODES.hasOwnProperty(event.keyCode)) return
 
-})();
+    this.style_elem.innerHTML = ''
+    document.removeEventListener('keydown', this.enable) // off
+    document.addEventListener('mousedown', this.disable) // on
+  }
+
+  disable() {
+    this.style_elem.innerHTML = ':focus{outline:0;}::-moz-focus-inner{border:0;}';
+    document.removeEventListener('mousedown', this.disable) // off
+    document.addEventListener('keydown', this.enable) // on
+  }
+
+  destroy() {
+    this.style_elem.remove()
+    document.removeEventListener('keydown', this.enable) // off
+    document.removeEventListener('mousedown', this.disable) // off
+  }
+}
+
+export default FocusOutline
