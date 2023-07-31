@@ -3,12 +3,7 @@
   // focus-outline.mjs
   var FocusOutline = class {
     constructor() {
-      this.style_elem = document.createElement("STYLE");
-      this.style_elem.setAttribute("type", "text/css");
-      this.style_elem.setAttribute("data-id", "focus-outline-style");
-      document.head.appendChild(this.style_elem);
-      document.addEventListener("keydown", this.enable.bind(this));
-      document.addEventListener("mousedown", this.disable.bind(this));
+      this.init();
     }
     enable(event) {
       const KEY_CODES = {
@@ -24,6 +19,13 @@
       this.style_elem.innerHTML = ":focus{outline:0;}::-moz-focus-inner{border:0;}";
       document.removeEventListener("mousedown", this.disable.bind(this));
       document.addEventListener("keydown", this.enable.bind(this));
+    }
+    init() {
+      this.style_elem = document.createElement("STYLE");
+      this.style_elem.setAttribute("type", "text/css");
+      this.style_elem.setAttribute("data-id", "focus-outline-style");
+      document.addEventListener("keydown", this.enable.bind(this));
+      document.addEventListener("mousedown", this.disable.bind(this));
     }
     destroy() {
       this.style_elem.remove();
