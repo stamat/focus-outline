@@ -1,0 +1,16 @@
+{
+  "scripts": [{
+  "in": "build/index.js",
+  "out": "focus-outline.js",
+  "options": {
+    "sourcemap": true,
+    "minify": true,
+    "justMinified": false,
+    "format": "iife",
+    "target": "es2019",
+    "mangle": true,
+    "globalName": "focusOutline"
+  }
+  }],
+  "banner": "/* {{ name }} v{{ version }} | {{ homepage }} | {{ license }} License */"
+}

@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/stamat/focus-outline/issues"
   },
-  "homepage": "https://github.com/stamat/focus-outline"
+  "homepage": "https://github.com/stamat/focus-outline",
+  "devDependencies": {
+    "poops": "^1.0.9"
+  }
 }
