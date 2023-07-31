@@ -6,8 +6,8 @@ export class FocusOutline {
 
     document.head.appendChild(this.style_elem)
 
-    document.addEventListener('keydown', this.enable) // on
-    document.addEventListener('mousedown', this.disable) // on
+    document.addEventListener('keydown', this.enable.bind(this)) // on
+    document.addEventListener('mousedown', this.disable.bind(this)) // on
   }
 
   enable(event) {
@@ -18,20 +18,20 @@ export class FocusOutline {
     if (!KEY_CODES.hasOwnProperty(event.keyCode)) return
 
     this.style_elem.innerHTML = ''
-    document.removeEventListener('keydown', this.enable) // off
-    document.addEventListener('mousedown', this.disable) // on
+    document.removeEventListener('keydown', this.enable.bind(this)) // off
+    document.addEventListener('mousedown', this.disable.bind(this)) // on
   }
 
   disable() {
     this.style_elem.innerHTML = ':focus{outline:0;}::-moz-focus-inner{border:0;}';
-    document.removeEventListener('mousedown', this.disable) // off
-    document.addEventListener('keydown', this.enable) // on
+    document.removeEventListener('mousedown', this.disable.bind(this)) // off
+    document.addEventListener('keydown', this.enable.bind(this)) // on
   }
 
   destroy() {
     this.style_elem.remove()
-    document.removeEventListener('keydown', this.enable) // off
-    document.removeEventListener('mousedown', this.disable) // off
+    document.removeEventListener('keydown', this.enable.bind(this)) // off
+    document.removeEventListener('mousedown', this.disable.bind(this)) // off
   }
 }
 
