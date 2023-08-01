@@ -1,39 +1,68 @@
 export class FocusOutline {
-  constructor() {
+  constructor(options = {}) {
+    this.options = options
+    this.initialized = false
+    this.enabled = true
     this.init()
+
+    this.css = `:focus{outline:0;}::-moz-focus-inner{border:0;}`
+
+    if (this.options.css) this.css = this.options.css
+    if (this.options.removeBoxShadow) this.css += `:focus{box-shadow:none;}::-moz-focus-inner{box-shadow:none;}`
+    this.keyCodes = this.options.keyCodes || [9]
+    this.bodyClass = this.options.bodyClass || null
+    this.callback = this.options.callback || null
+
+    this.keyCodes = this.keyCodes.reduce((obj, keyCode) => {
+      obj[keyCode] = true
+      return obj
+    }, {})
   }
 
   enable(event) {
-    const KEY_CODES = {
-      9: 'TAB'
-    }
-
-    if (!KEY_CODES.hasOwnProperty(event.keyCode)) return
-
-    console.log('enable', event.keyCode)
+    if (!this.keyCodes.hasOwnProperty(event.keyCode)) return
 
     this.style_elem.innerHTML = ''
+    if (this.bodyClass) document.body.classList.remove(this.bodyClass)
+    const oldState = this.enabled
+    this.enabled = true
+    if (this.callback && !oldState) this.callback(this)
   }
 
-  disable() { // on     
-    this.style_elem.innerHTML = ':focus{outline:0;}::-moz-focus-inner{border:0;}'
+  disable() {
+    this.style_elem.innerHTML = this.css
+    if (this.bodyClass) document.body.classList.add(this.bodyClass)
+    const oldState = this.enabled
+    this.enabled = false
+    if (this.callback && oldState) this.callback(this)
   }
 
   init() {
+    if (this.initialized) return
     this.style_elem = document.createElement('STYLE')
     this.style_elem.setAttribute('type', 'text/css')
     this.style_elem.setAttribute('data-id', 'focus-outline-style')
 
     document.head.appendChild(this.style_elem)
 
-    document.addEventListener('keydown', this.enable.bind(this)) // on
-    document.addEventListener('mousedown', this.disable.bind(this)) // on
+    this.boundEnable = this.enable.bind(this)
+    this.boundDisable = this.disable.bind(this)
+    document.addEventListener('keydown', this.boundEnable)
+    document.addEventListener('mousedown', this.boundDisable)
+
+    this.initialized = true
+
+    return this
   }
 
   destroy() {
     this.style_elem.remove()
-    document.removeEventListener('keydown', this.enable.bind(this)) // off
-    document.removeEventListener('mousedown', this.disable.bind(this)) // off
+
+    document.removeEventListener('keydown', this.boundEnable)
+    document.removeEventListener('mousedown', this.boundDisable)
+    if (this.initialized) this.initialized = false
+
+    return this
   }
 }
 
