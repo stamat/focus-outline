@@ -1,6 +1,6 @@
 {
   "scripts": [{
-  "in": "build/index.js",
+  "in": "build/iife.js",
   "out": "focus-outline.js",
   "options": {
     "sourcemap": true,
@@ -9,7 +9,7 @@
     "format": "iife",
     "target": "es2019",
     "mangle": true,
-    "globalName": "focusOutline"
+    "globalName": "FocusOutline"
   }
   }],
   "banner": "/* {{ name }} v{{ version }} | {{ homepage }} | {{ license }} License */"
